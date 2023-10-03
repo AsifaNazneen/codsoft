@@ -1,78 +1,50 @@
-package CodSoftIntern;
+import java.io.*;
+public class atm {
 
-import java.util.Scanner;
-class AccountBalance{
-    public double balance;
-    public double getBalance() {
-        return balance;
+  public static void displayBalance(int balance)
+  {
+    System.out.println("Current Balance : " + balance);
+    System.out.println("Minimum balance should be maintained in your account");
+    System.out.println();
+  }
+
+  public static int amountWithdrawing(int balance,int withdrawAmount)
+  {
+    System.out.println("Withdrawn Status:");
+    System.out.println("Withdrawing Amount : " + withdrawAmount);
+    if (balance >= withdrawAmount) 
+    {
+      balance = balance - withdrawAmount;
+      System.out.println("Please collect your money and collect the card");
+      displayBalance(balance);
     }
-    public void setBalance(double balance) {
-        this.balance = balance;
+    else {
+      System.out.println("Sorry! Insufficient Balance");
+      System.out.println();
     }
-    public void deposit(double amount) {
-        if (amount > 0) {
-            balance += amount;
-            System.out.println("$ " + amount +" has deposit succesfully");
-        } else {
-            System.out.println("Invalid Amount.");
-        }
-    }
-    public void checkBalance() {
-        System.out.println("Your AccountBalance is: $" + this.balance);
-    }
-    public void withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-            System.out.println("$ " + amount + " Withdrawn Successfully.");
-        } else {
-            System.out.println("Insufficient Balance");
-        }
-    }
-}
-public class ATM_machine {
-    Scanner sc=new Scanner(System.in);
-    public AccountBalance Account;
-    public ATM_machine(double initialbalance){
-         Account= new AccountBalance();
-        Account.setBalance(initialbalance);
-    }
-    public void displaymenu(){
-        System.out.println("ATM Menu:");
-        System.out.println("1. Check Balance \n 2. Deposit \n 3. Withdraw \n 4. Exit");
-    }
-    public  void menu(){
-        int choice;
-        double amount;
-        do{
-            displaymenu();
-            System.out.println("Select an option 1-4");
-            choice=sc.nextInt();
-            switch (choice){
-                case 1:
-                    Account.checkBalance();
-                    break;
-                case 2:
-                    System.out.println("Enter  Deposit amount ");
-                    amount=sc.nextDouble();
-                    Account.deposit(amount);
-                    break;
-                case 3:
-                    System.out.println("Enter Withdraw amount ");
-                    amount=sc.nextDouble();
-                    Account.withdraw(amount);
-                    break;
-                case 4:
-                    System.out.println("Exiting ATM. Thank You!");
-                    break;
-            }
-        }while (choice<4);
-    }
-    public static void main(String[] args) {
-        Scanner s= new Scanner(System.in);
-        System.out.println(" Input Initial Balance");
-        double initialBalance=s.nextDouble();
-        ATM_machine atm=new ATM_machine(initialBalance);
-        atm.menu();
-        s.close();
-    }
+    return balance;
+  }
+
+  public static int amountDepositing(int balance,int depositAmount)
+  {
+    System.out.println("Deposit Status:");
+    System.out.println("Depositing Amount : " + depositAmount);
+    balance = balance + depositAmount;
+    System.out.println("Your Money has been successfully deposited in your account");
+    System.out.println("Your deposited amount will be shown on the screen");
+    displayBalance(balance);
+    return balance;
+  }
+
+  public static void main(String args[])
+  {
+    int balance = 15000;
+    int withdrawAmount = 2000;
+    int depositAmount = 600;
+    displayBalance(balance);
+    balance= amountWithdrawing(balance, withdrawAmount);
+        balance = amountDepositing(balance, depositAmount);
+       System.out.println("Thank you.....");
+       System.out.println("Have a nice day!");
+  }
 }
